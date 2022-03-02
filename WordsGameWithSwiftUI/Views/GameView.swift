@@ -10,16 +10,17 @@ import SwiftUI
 struct GameView: View {
     
     @State private var word = ""
-    
+    @State private var confirmPresent = false
+    @State private var isAlertPresented = false
+    @State var alertText = ""
     var viewModel: GameViewModel
-    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 16, content: {
             HStack {
                 Button(action: {
-                    print("Quit")
-                    //print(viewModel)
+                    confirmPresent.toggle()
                 }, label: {
                     Text("Выход")
                         .padding(6)
@@ -47,7 +48,7 @@ struct GameView: View {
                 .frame(width: screen.width / 2.2, height: screen.width / 2.2)
                 .background(Color("FirstPlayer"))
                 .cornerRadius(26)
-                .shadow(color: .red, radius: 4, x: 0, y: 0)
+                .shadow(color: viewModel.isFirst ? .red : .clear, radius: 4, x: 0, y: 0)
                 
                 VStack {
                     Text("\(viewModel.player2.score)")
@@ -60,13 +61,36 @@ struct GameView: View {
                 .frame(width: screen.width / 2.2, height: screen.width / 2.2)
                 .background(Color("SecondColor"))
                 .cornerRadius(26)
-                .shadow(color: .purple, radius: 4, x: 0, y: 0)
+                .shadow(color: viewModel.isFirst ? .clear : .purple, radius: 4, x: 0, y: 0)
             }
             WordTextField(word: $word, placeHolder: "Bаше слово")
             .padding(.horizontal)
             
             Button(action: {
-                let score = viewModel.check(word: word)
+                
+                var score = 0
+                
+                do {
+                    try score = viewModel.check(word: word)
+                    
+                } catch WordError.beforeWord {
+                    alertText = "Придумай словоб которое не было составлено ранее"
+                    isAlertPresented.toggle()
+                    
+                } catch WordError.littleWord {
+                    alertText = "Cлишком короткое слово"
+                    isAlertPresented.toggle()
+                } catch WordError.theSameWord {
+                    alertText = "Вставленное словов не должно быть исходным словом"
+                    isAlertPresented.toggle()
+                } catch WordError.wrongWord {
+                    alertText = "Такое слово не может быть составлено"
+                    isAlertPresented.toggle()
+                } catch {
+                    alertText = "Неизвестная ошибка"
+                    isAlertPresented.toggle()
+                }
+                
                 if score > 1 {
                     self.word = ""
                 }
@@ -84,11 +108,35 @@ struct GameView: View {
             
             List {
                 
+                ForEach(0 ..< self.viewModel.words.count, id: \.description) { item in
+                    WordCell(word: self.viewModel.words[item])
+                        .background(item % 2 == 0 ? Color("FirstPlayer") : Color("SecondColor"))
+                        .listRowInsets(EdgeInsets())
+                        
+                }
+                
             }.padding(6)
             .listStyle(PlainListStyle())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
         }).background(Image("iPhone-11-Black"))
+            .confirmationDialog("Вы уверены что хотите завершить игру",
+                                isPresented: $confirmPresent, titleVisibility: .visible) {
+                Button(role: .destructive) {
+                    self.dismiss()
+                } label: {
+                    Text("Да")
+                }
+                
+                Button(role: .cancel) {
+                } label: {
+                    Text("Heт")
+                }
+
+            }
+                                .alert(alertText, isPresented: $isAlertPresented) {
+                                    Text("OK!")
+                                }
     }
 }
 

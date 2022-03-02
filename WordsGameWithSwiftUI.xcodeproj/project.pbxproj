@@ -16,6 +16,7 @@
 		524A55B827CD2AF100205201 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524A55B727CD2AF100205201 /* SwiftUIView.swift */; };
 		524A55BD27CD2B5800205201 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524A55BC27CD2B5800205201 /* GameViewModel.swift */; };
 		524A55BF27CD2C8100205201 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524A55BE27CD2C8100205201 /* GameView.swift */; };
+		524A55E727CF810B00205201 /* WordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524A55E627CF810B00205201 /* WordCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		524A55B727CD2AF100205201 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		524A55BC27CD2B5800205201 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		524A55BE27CD2C8100205201 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		524A55E627CF810B00205201 /* WordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				524A55B527CD2AA800205201 /* TitleText.swift */,
+				524A55E627CF810B00205201 /* WordCell.swift */,
 				524A55B727CD2AF100205201 /* SwiftUIView.swift */,
 			);
 			path = Components;
@@ -189,6 +192,7 @@
 				524A55B627CD2AA800205201 /* TitleText.swift in Sources */,
 				524A55B227CD2A4500205201 /* Player.swift in Sources */,
 				524A55A327CD298000205201 /* WordsGameWithSwiftUIApp.swift in Sources */,
+				524A55E727CF810B00205201 /* WordCell.swift in Sources */,
 				524A55B827CD2AF100205201 /* SwiftUIView.swift in Sources */,
 				524A55BF27CD2C8100205201 /* GameView.swift in Sources */,
 			);
